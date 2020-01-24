@@ -1,0 +1,6 @@
+# ReadMe
+
+Can we, in the same swarm, run both traefik 1.7 and traefik 2.0, on separate overlay networks, where the one routes http, and the other routes tcp?
+
+    ./init.sh
+	./test.sh

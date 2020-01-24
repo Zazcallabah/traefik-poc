@@ -8,10 +8,11 @@ services:
       - "./http:/usr/share/nginx/html:ro"
     deploy:
       labels:
-        - traefik.frontend.rule=Host:http.local
         - traefik.enable=true
         - traefik.port=80
-        - traefik.webervice.frontend.entryPoints=http
+        - traefik.frontend.rule=Host:http.local
+        - traefik.webservice.frontend.entryPoints=http
+
 networks:
   traefik-http:
     external: true

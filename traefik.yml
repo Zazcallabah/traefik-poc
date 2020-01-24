@@ -18,13 +18,12 @@ services:
         constraints:
           - node.role == manager
       labels:
-        - traefik.frontend.rule=Host(`localhost`)"
+        - traefik.frontend.rule=Host:localhost
         - traefik.enable=true
         - traefik.port=8080
         - traefik.webservice.frontend.entryPoints=http
     ports:
       - 80:80
-      - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:

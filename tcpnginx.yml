@@ -9,10 +9,10 @@ services:
     deploy:
       labels:
         - "traefik.enable=true"
-        - "traefik.tcp.routers.tcpnginx.rule=HostSNI(`tcp.local`)"
+        - "traefik.tcp.routers.tcpnginx.rule=HostSNI(`*`)"
         - "traefik.tcp.routers.tcpnginx.tls=false"
-        - "traefik.http.routers.nginx.service=tcpnginx"
-        - "traefik.tcp.services.tcpnginx.loadbalancer.server.port=81"
+        - "traefik.tcp.routers.tcpnginx.service=tcpnginx"
+        - "traefik.tcp.services.tcpnginx.loadbalancer.server.port=80"
 
 networks:
   traefik-tcp:
