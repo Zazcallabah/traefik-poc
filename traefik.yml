@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik:v1.7
+    command:
+      - --logLevel=INFO
+      - --docker
+      - --docker.swarmmode
+      - --docker.watch
+      - --docker.exposedbydefault=false
+      - --docker.network=traefik-http
+      - --entrypoints=Name:http Address::80
+      - --defaultentrypoints=http
+      - --api
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.frontend.rule=Host(`localhost`)"
+        - traefik.enable=true
+        - traefik.port=8080
+        - traefik.webservice.frontend.entryPoints=http
+    ports:
+      - 80:80
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - traefik-http
+
+networks:
+  traefik-http:
+    external: true

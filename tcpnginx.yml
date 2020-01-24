@@ -1,0 +1,19 @@
+version: "3"
+services:
+  tcpnginx:
+    image: nginx:alpine
+    networks:
+      - traefik-tcp
+    volumes:
+      - "./tcp:/usr/share/nginx/html:ro"
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.tcp.routers.tcpnginx.rule=HostSNI(`tcp.local`)"
+        - "traefik.tcp.routers.tcpnginx.tls=false"
+        - "traefik.http.routers.nginx.service=tcpnginx"
+        - "traefik.tcp.services.tcpnginx.loadbalancer.server.port=81"
+
+networks:
+  traefik-tcp:
+    external: true

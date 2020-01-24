@@ -1,0 +1,17 @@
+version: "3"
+services:
+  nginx:
+    image: nginx:alpine
+    networks:
+      - traefik-http
+    volumes:
+      - "./http:/usr/share/nginx/html:ro"
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:http.local
+        - traefik.enable=true
+        - traefik.port=80
+        - traefik.webervice.frontend.entryPoints=http
+networks:
+  traefik-http:
+    external: true
